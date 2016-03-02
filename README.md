@@ -6,7 +6,7 @@ The FinSpec validator is a tool designed to validate that FinSpec JSON documents
 
 1. Install Node JS, if not done already. You can find installables [here.](https://nodejs.org/en/download/)
 
-2. Launch terminal and go to finspec-validator folder. Run the validator server using command.
+2. Launch terminal and go to finspec-validator folder. Run the validator server using command:
 
    ```js
    node server.js
