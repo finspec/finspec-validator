@@ -11,15 +11,29 @@ The FinSpec validator is a tool designed to validate that FinSpec JSON documents
    ```js
    node server.js
    ```
+   
 3. Keep this sever running in background or foreground to be able to perform the validations.
 
 ## How to validate
 
 Your schema can be validated using following command:
 
-	curl -XPOST localhost:8080/validate -F json=@/path/to/finspec.json
+```js   
+curl -XPOST localhost:8080/validate?version<schema_version> -F json=@/path/to/finspec.json
+```
+   
+Where,
+	schema_version is target FinSpec schema version.
 
 e.g.
-    
-	curl -XPOST localhost:8080/validate -F json=@./myschema.json 
-	{"pass":true,"message":"Good job!"}
+   
+   Version 0.1:
+   ```js
+   curl -XPOST localhost:8080/validate?version=0.1 -F json=@./myschema-0.1.json 
+   {"pass":true,"message":"Good job!"}
+   ```
+   Version 0.2:
+   ```js
+   curl -XPOST localhost:8080/validate?version=0.2 -F json=@./myschema-0.2.json 
+   {"pass":true,"message":"Good job!"}
+   ```

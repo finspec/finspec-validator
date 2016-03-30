@@ -36,7 +36,7 @@ if (log == null) {
     process.exit(0);
 }
 
-function compileSchema(schemaFile) {
+function compileSchema(schemaFile, version) {
 	schema = fs.readFileSync(schemaFile).toString();
 	try {
 		schema = JSON.parse(schema);
@@ -44,13 +44,12 @@ function compileSchema(schemaFile) {
 		console.error("Exception parsing schema file " + schemaFile + " Exception: ", e);
 	   	throw new Error(e);
 	}
-	ajv.addSchema(schema, 'finspec-0.1');
+	ajv.addSchema(schema, 'finspec-' + version);
 }
 
-// Compile FinSpec schema
-var schemaFile = 'schemas/0.1.json',
-	schema = compileSchema(schemaFile);
-
+// Compile FinSpec schemas
+compileSchema('schemas/0.1.json', '0.1');
+compileSchema('schemas/0.2.json', '0.2');
 
 // Configure app to use bodyParser() to allow us to get data from POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -85,6 +84,9 @@ app.post('/validate', upload.single('json'), function (req, res, next) {
 
 	log.info("Incoming validate from", getClientIp(req));
 
+	var version = req.query.version;
+	log.info("FinSpec schema version:", version);
+
 	// File not accepted due to size limits
 	if(typeof req.file == 'undefined') {
 		res.writeHead(413, {'Content-Type': 'text/plain'});
@@ -101,6 +103,20 @@ app.post('/validate', upload.single('json'), function (req, res, next) {
 		log.warn("Validate rejected - too small");
 		return;
 	}
+	else if (version == null) {
+		res.writeHead(413, {'Content-Type': 'text/plain'});
+		res.end("Request missing FinSpec schema version.");
+		req.connection.destroy();
+		log.warn("Request missing FinSpec schema version.");
+		return;		
+	}
+	else if (version != "0.1" && version != "0.2") {
+		res.writeHead(413, {'Content-Type': 'text/plain'});
+		res.end("Request has invalid FinSpec schema version: " + version);
+		req.connection.destroy();
+		log.warn("Request has invalid FinSpec schema version: " + version);
+		return;		
+	}
 
 	log.info("Upload stored", req.file);
 
@@ -115,7 +131,7 @@ app.post('/validate', upload.single('json'), function (req, res, next) {
 		}
 
 		// Try validating the doc against the schema
-		var valid = ajv.validate('finspec-0.1', data);
+		var valid = ajv.validate('finspec-' + version, data);
 		if (!valid) {
 			var error = ajv.errorsText();
 			res.json({ pass: false, message: error });
