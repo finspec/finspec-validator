@@ -1,6 +1,6 @@
 # The FinSpec Specification Validator
 
-The FinSpec validator is a tool designed to validate that FinSpec JSON documents correctly match the specification as defined, or to return error messages indicating where the validation is failing.
+The FinSpec validator is a tool designed to validate that FinSpec JSON documents correctly match the specification as defined [here](http//finspec.io), or to return error messages indicating where the validation is failing.
 
 ## Launch the server
 
