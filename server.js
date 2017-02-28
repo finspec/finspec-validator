@@ -48,9 +48,11 @@ function compileSchema(schemaFile, version) {
 }
 
 // Compile FinSpec schemas
-compileSchema('schemas/0.1.json', '0.1');
-compileSchema('schemas/0.2.json', '0.2');
+// compileSchema('schemas/0.1.json', '0.1');
+// compileSchema('schemas/0.2.json', '0.2');
 compileSchema('schemas/0.3.json', '0.3');
+compileSchema('schemas/1.0.json', '1.0');
+
 
 // Configure app to use bodyParser() to allow us to get data from POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -111,7 +113,7 @@ app.post('/validate', upload.single('json'), function (req, res, next) {
 		log.warn("Request missing FinSpec schema version.");
 		return;		
 	}
-	else if (version != "0.1" && version != "0.2" && version != "0.3") {
+	else if (version != "0.3" && version != "1.0") {
 		res.writeHead(413, {'Content-Type': 'text/plain'});
 		res.end("Request has invalid FinSpec schema version: " + version);
 		req.connection.destroy();
