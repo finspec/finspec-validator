@@ -88,3 +88,12 @@
 {"name":"finspec-validator","hostname":"chris-desktop","pid":4022,"level":30,"msg":"FinSpec schema version: 1.0","time":"2017-02-28T17:22:53.602Z","v":0}
 {"name":"finspec-validator","hostname":"chris-desktop","pid":4022,"level":30,"msg":"Upload stored { fieldname: 'json',\n  originalname: 'fix-equity-with-workflow.json',\n  encoding: '7bit',\n  mimetype: 'application/octet-stream',\n  destination: 'uploads/',\n  filename: 'ec578dfb24f683ee5c013fd255b00599',\n  path: 'uploads/ec578dfb24f683ee5c013fd255b00599',\n  size: 49661 }","time":"2017-02-28T17:22:53.602Z","v":0}
 {"name":"finspec-validator","hostname":"chris-desktop","pid":4022,"level":30,"msg":"File valid FinSpec","time":"2017-02-28T17:22:53.605Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":13589,"level":30,"msg":"Starting validator on port 8080","time":"2017-03-01T17:18:56.858Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":13589,"level":30,"msg":"Incoming validate from ::ffff:127.0.0.1","time":"2017-03-01T17:19:13.866Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":13589,"level":30,"msg":"FinSpec schema version: 1.0","time":"2017-03-01T17:19:13.867Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":13589,"level":30,"msg":"Upload stored { fieldname: 'json',\n  originalname: 'temp.json',\n  encoding: '7bit',\n  mimetype: 'application/octet-stream',\n  destination: 'uploads/',\n  filename: '17de32690adf1073d2888215bedae58b',\n  path: 'uploads/17de32690adf1073d2888215bedae58b',\n  size: 312168 }","time":"2017-03-01T17:19:13.883Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":13589,"level":30,"msg":"File valid FinSpec","time":"2017-03-01T17:19:13.967Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":28279,"level":30,"msg":"Starting validator on port 8080","time":"2017-03-06T11:15:25.087Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":28279,"level":30,"msg":"Incoming validate from ::ffff:127.0.0.1","time":"2017-03-06T11:16:42.607Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":28279,"level":30,"msg":"FinSpec schema version: undefined","time":"2017-03-06T11:16:42.607Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":28279,"level":40,"msg":"Validate rejected - too large","time":"2017-03-06T11:16:42.610Z","v":0}
