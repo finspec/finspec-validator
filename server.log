@@ -97,3 +97,11 @@
 {"name":"finspec-validator","hostname":"chris-desktop","pid":28279,"level":30,"msg":"Incoming validate from ::ffff:127.0.0.1","time":"2017-03-06T11:16:42.607Z","v":0}
 {"name":"finspec-validator","hostname":"chris-desktop","pid":28279,"level":30,"msg":"FinSpec schema version: undefined","time":"2017-03-06T11:16:42.607Z","v":0}
 {"name":"finspec-validator","hostname":"chris-desktop","pid":28279,"level":40,"msg":"Validate rejected - too large","time":"2017-03-06T11:16:42.610Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":12430,"level":30,"msg":"Starting validator on port 8080","time":"2017-03-10T11:56:11.367Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":12430,"level":30,"msg":"Incoming validate from ::ffff:127.0.0.1","time":"2017-03-10T11:57:32.737Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":12430,"level":30,"msg":"FinSpec schema version: undefined","time":"2017-03-10T11:57:32.737Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":12430,"level":40,"msg":"Request missing FinSpec schema version.","time":"2017-03-10T11:57:32.740Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":12430,"level":30,"msg":"Incoming validate from ::ffff:127.0.0.1","time":"2017-03-10T11:58:05.302Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":12430,"level":30,"msg":"FinSpec schema version: 1.1","time":"2017-03-10T11:58:05.302Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":12430,"level":30,"msg":"Upload stored { fieldname: 'json',\n  originalname: 'sLB02ef2-8P3YeuID.json',\n  encoding: '7bit',\n  mimetype: 'application/octet-stream',\n  destination: 'uploads/',\n  filename: '3315ce88b3a34a2369e2e14a80ef4f7e',\n  path: 'uploads/3315ce88b3a34a2369e2e14a80ef4f7e',\n  size: 52373 }","time":"2017-03-10T11:58:05.317Z","v":0}
+{"name":"finspec-validator","hostname":"chris-desktop","pid":12430,"level":30,"msg":"File valid FinSpec","time":"2017-03-10T11:58:05.363Z","v":0}

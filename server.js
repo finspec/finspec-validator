@@ -7,10 +7,10 @@ var express    = require('express'),        // Node express (web server)
 	upload     = multer({ 
 					dest: 'uploads/',
 					limits: {
-						fileSize: 3145728		// 3Mb max upload size
+						fileSize: 10485760		// 3Mb max upload size
 					}
 				}),
-	Logger 		= require("./lib/logger.min"),	// Bunyan logging
+	Logger 		= require("./lib/logger"),	    // Bunyan logging
 	Ajv 		= require('ajv'),				// Ajv for JSON schema validation
 	ajv 		= Ajv(); 						// options can be passed
 
@@ -52,6 +52,7 @@ function compileSchema(schemaFile, version) {
 // compileSchema('schemas/0.2.json', '0.2');
 compileSchema('schemas/0.3.json', '0.3');
 compileSchema('schemas/1.0.json', '1.0');
+compileSchema('schemas/1.1.json', '1.1');
 
 
 // Configure app to use bodyParser() to allow us to get data from POST
@@ -113,7 +114,7 @@ app.post('/validate', upload.single('json'), function (req, res, next) {
 		log.warn("Request missing FinSpec schema version.");
 		return;		
 	}
-	else if (version != "0.3" && version != "1.0") {
+	else if (version != "0.3" && version != "1.0" && version != "1.1") {
 		res.writeHead(413, {'Content-Type': 'text/plain'});
 		res.end("Request has invalid FinSpec schema version: " + version);
 		req.connection.destroy();
