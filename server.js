@@ -53,7 +53,7 @@ function compileSchema(schemaFile, version) {
 compileSchema('schemas/0.3.json', '0.3');
 compileSchema('schemas/1.0.json', '1.0');
 compileSchema('schemas/1.1.json', '1.1');
-
+compileSchema('schemas/1.2.json', '1.2');
 
 // Configure app to use bodyParser() to allow us to get data from POST
 app.use(bodyParser.urlencoded({ extended: true }));
