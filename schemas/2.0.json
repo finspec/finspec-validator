@@ -207,9 +207,9 @@
                     "type": "boolean",
                     "description": "Do messages in this protocol always have a defined header block?"
                 },
-                "hasFooter": {
+                "hasTrailer": {
                     "type": "boolean",
-                    "description": "Do messages in this protocol always have a defined footer block?"
+                    "description": "Do messages in this protocol always have a defined trailer (footer) block?"
                 }
             },
             "patternProperties": {
@@ -517,7 +517,7 @@
                 },
                 "isTrailer": {
                     "type": "boolean",
-                    "description": "Whether this fieldset describes a re-usable footer or trailer block."
+                    "description": "Whether this fieldset describes a re-usable trailer (footer) block."
                 },
                 "fields": {
                     "$ref": "#/definitions/fieldArray"
