@@ -4,7 +4,7 @@ var express    = require('express'),        // Node express (web server)
 	bodyParser = require('body-parser'),	// To read uploaded json files
 	fs  	   = require('fs'),				// Save files to the filesystem
 	multer     = require('multer'),  		// Multi-part file uploads
-	upload     = multer({ 
+	upload     = multer({
 					dest: 'uploads/',
 					limits: {
 						fileSize: 10485760		// 3Mb max upload size
@@ -12,9 +12,13 @@ var express    = require('express'),        // Node express (web server)
 				}),
 	Logger 		= require("./lib/logger"),	    // Bunyan logging
 	Ajv 		= require('ajv'),				// Ajv for JSON schema validation
-	ajv 		= Ajv(); 						// options can be passed
+	ajv 		= new Ajv({
+					schemaId: 'auto',
+					extendRefs: true
+				  });
 
- 
+// Allow both draft-04 and draft-06/07 schemas
+ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
 
 function readConfiguration(configFile) {
     content = fs.readFileSync(configFile).toString();
@@ -50,10 +54,11 @@ function compileSchema(schemaFile, version) {
 // Compile FinSpec schemas
 // compileSchema('schemas/0.1.json', '0.1');
 // compileSchema('schemas/0.2.json', '0.2');
-compileSchema('schemas/0.3.json', '0.3');
+// compileSchema('schemas/0.3.json', '0.3');
 compileSchema('schemas/1.0.json', '1.0');
 compileSchema('schemas/1.1.json', '1.1');
 compileSchema('schemas/1.2.json', '1.2');
+compileSchema('schemas/2.0.json', '2.0');
 
 // Configure app to use bodyParser() to allow us to get data from POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -112,14 +117,14 @@ app.post('/validate', upload.single('json'), function (req, res, next) {
 		res.end("Request missing FinSpec schema version.");
 		req.connection.destroy();
 		log.warn("Request missing FinSpec schema version.");
-		return;		
+		return;
 	}
-	else if (version != "0.3" && version != "1.0" && version != "1.1") {
+	else if (["1.0","1.1","1.2","2.0"].indexOf(version) == -1) {
 		res.writeHead(413, {'Content-Type': 'text/plain'});
 		res.end("Request has invalid FinSpec schema version: " + version);
 		req.connection.destroy();
 		log.warn("Request has invalid FinSpec schema version: " + version);
-		return;		
+		return;
 	}
 
 	log.info("Upload stored", req.file);
@@ -151,7 +156,7 @@ app.post('/validate', upload.single('json'), function (req, res, next) {
 
 
 // START THE SERVER
-var port = configs.port || 8080;
+var port = configs.port || 9999;
 log.info("Starting validator on port " + port);
 app.listen(port);
 console.log('Magic happens on port ' + port);

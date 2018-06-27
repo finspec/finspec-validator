@@ -21,34 +21,38 @@ The FinSpec validator is a tool designed to validate that FinSpec JSON documents
    ```js
    node server.js
    ```
-   
+
 2. Keep this sever running in background or foreground to be able to perform the validations.
 
 3. Your schema can now be validated by using curl like this:
 
 ```js   
-curl -XPOST localhost:8080/validate?version=<schema_version> -F json=@/path/to/finspec.json
+curl -XPOST localhost:9999/validate?version=<schema_version> -F json=@/path/to/finspec.json
 ```
-   
+
 Where,
 	schema_version is target FinSpec schema version.
 
 e.g.
-   
+
    Version 1.1 (Current Version):
    ```js
-   curl -XPOST localhost:8080/validate?version=1.1 -F json=@./myschema-1.1.json 
+   curl -XPOST localhost:8080/validate?version=1.1 -F json=@./myschema-1.1.json
    {"pass":true,"message":"Good job!"}
    ```
-   
+
    Version 1.0:
    ```js
-   curl -XPOST localhost:8080/validate?version=1.0 -F json=@./myschema-1.0.json 
+   curl -XPOST localhost:8080/validate?version=1.0 -F json=@./myschema-1.0.json
    {"pass":true,"message":"Good job!"}
-   
+
    ```
    Version 0.3 (Prior Version):
    ```js
-   curl -XPOST localhost:8080/validate?version=0.3 -F json=@./myschema-0.3.json 
+   curl -XPOST localhost:8080/validate?version=0.3 -F json=@./myschema-0.3.json
    {"pass":true,"message":"Good job!"}
    ```
+
+## Changing port
+
+By default, the node application uses port 9999. If you prefer a different port, simple shut the server down, edit `server.cfg` and restart.
