@@ -35,15 +35,15 @@ Where,
 
 e.g.
 
-   Version 2.0 (Current Version):
+   Version 2.1 (Current Version):
    ```js
-   curl -XPOST localhost:9999/validate?version=2.0 -F json=@./myschema-1.1.json
+   curl -XPOST localhost:9999/validate?version=2.1 -F json=@./myschema-2.1.json
    {"pass":true,"message":"Good job!"}
    ```
 
-   Version 1.2 (prior version):
+   Version 2.0 (prior version):
    ```js
-   curl -XPOST localhost:9999/validate?version=1.2 -F json=@./myschema-1.0.json
+   curl -XPOST localhost:9999/validate?version=2.0 -F json=@./myschema-2.0.json
    {"pass":true,"message":"Good job!"}
    ```
 

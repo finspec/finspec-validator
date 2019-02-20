@@ -59,6 +59,8 @@ compileSchema('schemas/1.0.json', '1.0');
 compileSchema('schemas/1.1.json', '1.1');
 compileSchema('schemas/1.2.json', '1.2');
 compileSchema('schemas/2.0.json', '2.0');
+compileSchema('schemas/2.1.json', '2.1');
+
 
 // Configure app to use bodyParser() to allow us to get data from POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -119,7 +121,7 @@ app.post('/validate', upload.single('json'), function (req, res, next) {
 		log.warn("Request missing FinSpec schema version.");
 		return;
 	}
-	else if (["1.0","1.1","1.2","2.0"].indexOf(version) == -1) {
+	else if (["1.0","1.1","1.2","2.0","2.1"].indexOf(version) == -1) {
 		res.writeHead(413, {'Content-Type': 'text/plain'});
 		res.end("Request has invalid FinSpec schema version: " + version);
 		req.connection.destroy();
