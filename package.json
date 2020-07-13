@@ -1,0 +1,12 @@
+{
+  "name": "node-api",
+  "main": "server.js",
+  "dependencies": {
+    "ajv": "^6.5.1",
+    "body-parser": "~1.0.1",
+    "bunyan": "~0.22.1",
+    "express": "~4.0.0",
+    "multer": "~1.0.3",
+    "z-schema": "~3.12.4"
+  }
+}
