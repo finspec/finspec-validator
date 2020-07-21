@@ -1,11 +1,11 @@
 {
-    "finspec": "2.1",
+    "finspec": "3.0",
     "info": {
         "version": "7.0",
         "issueDate": "2020-02-08",
         "liveDate": "2020-02-08",
         "issuer": "FixSpec",
-        "title": "Example Good FinSpec",
+        "title": "Example Good FinSpec v3.0",
         "contacts": [
             {
                 "name": "FixSpec",
@@ -89,11 +89,7 @@
             "baseType": "integer",
             "description": "Sequence of digits without commas or decimals and optional sign character. The sign character utilizes one byte (i.e. positive int is '99999' while negative int is '-99999'). Note that int values may contain leading zeros (e.g. '00023' = '23').",
             "isBitField": false,
-            "examples": [
-                {
-                    "description": "<ul><li>723 in field 21 would be mapped int as |21=723|</li><li>-723 in field 12 would be mapped int as |12=-723|</li></ul>"
-                }
-            ]
+            "examples": ["<ul><li>723 in field 21 would be mapped int as |21=723|</li><li>-723 in field 12 would be mapped int as |12=-723|</li></ul>"]
         },
         {
             "name": "Language",
@@ -113,44 +109,28 @@
             "baseType": "string",
             "description": "string field represening a Date of Local Market (as oppose to UTC) in YYYYMMDD format. This is the 'normal' date field used by the FIX Protocol.",
             "isBitField": false,
-            "examples": [
-                {
-                    "description": "Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li></ul>"
-                }
-            ]
+            "examples": ["Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li></ul>"]
         },
         {
             "name": "MonthYear",
             "baseType": "string",
             "description": "String field representing month of a year. An optional day of the month can be appended or an optional week code.",
             "isBitField": false,
-            "examples": [
-                {
-                    "description": "Valid formats:<ol><li>YYYYMM</li><li>YYYYMMDD</li><li>YYYYMMWW</li></ol>Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li><li>WW = w1, w2, w3, w4, w5</li></ul>"
-                }
-            ]
+            "examples": ["Valid formats:<ol><li>YYYYMM</li><li>YYYYMMDD</li><li>YYYYMMWW</li></ol>Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li><li>WW = w1, w2, w3, w4, w5</li></ul>"]
         },
         {
             "name": "MultipleCharValue",
             "baseType": "string",
             "description": "String field containing one or more space-delimited single character values",
             "isBitField": false,
-            "examples": [
-                {
-                    "description": "<p>|18=2 A F|</p>"
-                }
-            ]
+            "examples": ["<p>|18=2 A F|</p>"]
         },
         {
             "name": "MultipleStringValue",
             "baseType": "string",
             "description": "String field containing one or more space-delimited multiple character values",
             "isBitField": false,
-            "examples": [
-                {
-                    "description": "<p>|277=AV AN A|</p>"
-                }
-            ]
+            "examples": ["<p>|277=AV AN A|</p>"]
         },
         {
             "name": "NumInGroup",
@@ -240,11 +220,7 @@
             "baseType": "string",
             "description": "String field representing the time represented based on ISO 8601. This is the time with a UTC offset to allow identification of local time and timezone of that time. Format is HH=>MM[=>SS][Z | [ + | - hh[=>mm]]] where HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes.",
             "isBitField": false,
-            "examples": [
-                {
-                    "description": "<ul><li>02:39-05 = five hours behind UTC (Eastern Standard Time)</li><li>15:39+08 = eight hours ahead of UTC (Hong Kong/Singapore time)</li><li>13:09+05:30 = 5.5 hours ahead of UTC (India Standard time)</li></ul>"
-                }
-            ]
+            "examples": ["<ul><li>02:39-05 = five hours behind UTC (Eastern Standard Time)</li><li>15:39+08 = eight hours ahead of UTC (Hong Kong/Singapore time)</li><li>13:09+05:30 = 5.5 hours ahead of UTC (India Standard time)</li></ul>"]
         },
         {
             "name": "TZTimestamp",
@@ -257,22 +233,14 @@
             "baseType": "string",
             "description": "String field representing Date represented in UTC (Universal Time Coordinated, also known as 'GMT') in YYYYMMDD format. This special-purpose field is paired with UTCTimeOnly to form a proper UTCTimestamp for bandwidth-sensitive messages.",
             "isBitField": false,
-            "examples": [
-                {
-                    "description": "Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li></ul>"
-                }
-            ]
+            "examples": ["Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li></ul>"]
         },
         {
             "name": "UTCTimeOnly",
             "baseType": "string",
             "description": "String field representing Time-only represented in UTC (Universal Time Coordinated, also known as 'GMT') in either HH:MM:SS (whole seconds) or HH:MM:SS.sss (milliseconds). This special-purpose field is paired with UTCDateOnly to form a proper UTCTimestamp for bandwidth-sensitive messages.",
             "isBitField": false,
-            "examples": [
-                {
-                    "description": "Valid values:<ul><li>HH = 00-23</li><li>MM = 00-59</li><li>SS = 00-60 (60 only if UTC leap second)</li><li>sss = 000-999</li></ul>"
-                }
-            ]
+            "examples": ["Valid values:<ul><li>HH = 00-23</li><li>MM = 00-59</li><li>SS = 00-60 (60 only if UTC leap second)</li><li>sss = 000-999</li></ul>"]
         },
         {
             "name": "UTCTimestamp",
@@ -280,11 +248,7 @@
             "description": "String field representing Time/date combination represented in UTC (Universal Time Coordinated, also known as 'GMT') in either YYYYMMDD-HH:MM:SS (whole seconds) or YYYYMMDD-HH:MM:SS.sss (milliseconds). Note that UTC includes corrections for leap seconds as declared by the International Earth Rotation Service (IERS) and has, since 1972, only occurred on the night of Dec. 31 or Jun 30. The IERS considers March 31 and September 30 as secondary dates for leap second insertion, but has never utilized these dates. During a leap second insertion, a UTCTimestamp field may read '19981231-23:59:59', '19981231-23:59:60', '19990101-00:00:00'",
             "isBitField": false,
 			"pattern": "20(1|2)[0-9](0[0-9]|1(1-2)-((0|1)[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9].[0-9]{3}",
-            "examples": [
-                {
-                    "description": "Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li><li>HH = 00-23</li><li>MM = 00-59</li><li>SS = 00-60 (60 only if UTC leap second)</li><li>sss = 000-999</li></ul>"
-                }
-            ]
+            "examples": ["Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li><li>HH = 00-23</li><li>MM = 00-59</li><li>SS = 00-60 (60 only if UTC leap second)</li><li>sss = 000-999</li></ul>"]
         },
         {
             "name": "XMLData",
