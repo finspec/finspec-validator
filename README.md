@@ -26,7 +26,6 @@ Simply cd into the installation folder and run:
    ```
 
 
-
 ## Validating FinSpec Documents As A Web Service
 
 This package leverages Node express, allowing the validation logic to be exposed as a microservice over a network. Perhaps to allow multiple users or processes to validate FinSpec documents on demand. To set up this simple microservice 
