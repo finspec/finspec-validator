@@ -1,0 +1,2272 @@
+{
+    "finspec": "2.1",
+    "info": {
+        "version": "7.0",
+        "issueDate": "2020-02-08",
+        "liveDate": "2020-02-08",
+        "issuer": "FixSpec",
+        "title": "Example Good FinSpec v2.1",
+        "contacts": [
+            {
+                "name": "FixSpec",
+                "url": "https://fixspec.com"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "protocol": {
+        "name": "FIX",
+        "description": "FIX Protocol",
+        "isFIX": true,
+        "isOffsetBased": false,
+        "isTagValue": true,
+        "isBinary": false,
+        "isObject": false,
+        "hasHeader": true,
+        "hasTrailer": true,
+        "charset": "UTF8"
+    },
+    "datatypes": [
+        {
+            "name": "Amt",
+            "baseType": "number",
+            "description": "float field typically representing a Price times a Qty",
+            "isBitField": false
+        },
+        {
+            "name": "Boolean",
+            "baseType": "char",
+            "description": "Single character field containing either Y (Yes or True), or N (No or False)",
+            "isBitField": false
+        },
+        {
+            "name": "char",
+            "baseType": "char",
+            "description": "Single character value, can include any alphanumeric character or punctuation except the delimiter. All char fields are case sensitive (i.e. m != M).",
+            "isBitField": false
+        },
+        {
+            "name": "Country",
+            "baseType": "string",
+            "description": "ISO 3166 Country (2 character) code. See http://www.iso.org/iso/country_codes",
+            "length": 2,
+            "isBitField": false
+        },
+        {
+            "name": "Currency",
+            "baseType": "string",
+            "description": "ISO 4217 Currency (3 character) code. See http://www.iso.org/iso/home/standards/currency_codes.htm",
+            "length": 3,
+            "isBitField": false
+        },
+        {
+            "name": "data",
+            "baseType": "string",
+            "description": "string field containing raw data with no format or content restrictions. Data fields are always immediately preceded by a length field. The length field should specify the number of bytes of the value of the data field (up to but not including the terminating SOH).<br>Caution=> the value of one of these fields may contain the delimiter (SOH) character. Note that the value specified for this field should be followed by the delimiter (SOH) character as all fields are terminated with an 'SOH'.",
+            "isBitField": false
+        },
+        {
+            "name": "DayOfMonth",
+            "baseType": "integer",
+            "description": "int field representing a day during a particular monthy (values 1 to 31).",
+            "isUnsigned": true,
+            "isBitField": false
+        },
+        {
+            "name": "Exchange",
+            "baseType": "string",
+            "description": "ISO 10383 Market Identifier Code (MIC). See http://www.iso15022.org/mic/homepagemic.htm",
+            "isBitField": false
+        },
+        {
+            "name": "float",
+            "baseType": "number",
+            "description": "Sequence of digits with optional decimal point and sign character; the absence of the decimal point within the string will be interpreted as the float representation of an integer value. All float fields must accommodate up to fifteen significant digits. The number of decimal places used should be a factor of business/market needs and mutual agreement between counterparties. Note that float values may contain leading zeros (e.g. '00023.23' = '23.23') and may contain or omit trailing zeros after the decimal point (e.g. '23.0' = '23.0000' = '23' = '23.').",
+            "isBitField": false
+        },
+        {
+            "name": "int",
+            "baseType": "integer",
+            "description": "Sequence of digits without commas or decimals and optional sign character. The sign character utilizes one byte (i.e. positive int is '99999' while negative int is '-99999'). Note that int values may contain leading zeros (e.g. '00023' = '23').",
+            "isBitField": false,
+            "examples": [
+                {
+                    "description": "<ul><li>723 in field 21 would be mapped int as |21=723|</li><li>-723 in field 12 would be mapped int as |12=-723|</li></ul>"
+                }
+            ]
+        },
+        {
+            "name": "Language",
+            "baseType": "string",
+            "description": "ISO 639-1 language standard. See http://www.iso.org/iso/home/standards/language_codes.htm",
+            "isBitField": false
+        },
+        {
+            "name": "Length",
+            "baseType": "integer",
+            "description": "int field representing the length in bytes. Value must be positive.",
+            "isUnsigned": true,
+            "isBitField": false
+        },
+        {
+            "name": "LocalMktDate",
+            "baseType": "string",
+            "description": "string field represening a Date of Local Market (as oppose to UTC) in YYYYMMDD format. This is the 'normal' date field used by the FIX Protocol.",
+            "isBitField": false,
+            "examples": [
+                {
+                    "description": "Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li></ul>"
+                }
+            ]
+        },
+        {
+            "name": "MonthYear",
+            "baseType": "string",
+            "description": "String field representing month of a year. An optional day of the month can be appended or an optional week code.",
+            "isBitField": false,
+            "examples": [
+                {
+                    "description": "Valid formats:<ol><li>YYYYMM</li><li>YYYYMMDD</li><li>YYYYMMWW</li></ol>Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li><li>WW = w1, w2, w3, w4, w5</li></ul>"
+                }
+            ]
+        },
+        {
+            "name": "MultipleCharValue",
+            "baseType": "string",
+            "description": "String field containing one or more space-delimited single character values",
+            "isBitField": false,
+            "examples": [
+                {
+                    "description": "<p>|18=2 A F|</p>"
+                }
+            ]
+        },
+        {
+            "name": "MultipleStringValue",
+            "baseType": "string",
+            "description": "String field containing one or more space-delimited multiple character values",
+            "isBitField": false,
+            "examples": [
+                {
+                    "description": "<p>|277=AV AN A|</p>"
+                }
+            ]
+        },
+        {
+            "name": "NumInGroup",
+            "baseType": "integer",
+            "description": "int field representing the number of entries in a repeating group. Value must be positive.",
+            "isUnsigned": true,
+            "isBitField": false
+        },
+        {
+            "name": "Pattern",
+            "baseType": "string",
+            "description": "Used to build on and provide some restrictions on what is allowed as valid values in fields that uses a base FIX data type and a pattern data type. The universe of allowable valid values for the field would then be the union of the base set of valid values and what is defined by the pattern data type. The pattern data type used by the field will retain its base FIX data type (e.g. String, int, char).",
+            "isBitField": false
+        },
+        {
+            "name": "Percentage",
+            "baseType": "number",
+            "description": "float field representing a percentage (e.g. 0.05 represents 5% and 0.9525 represents 95.25%). Note the number of decimal places may vary.",
+            "isBitField": false
+        },
+        {
+            "name": "Price",
+            "baseType": "number",
+            "description": "Float field representing a price. Note the number of decimal places may vary. For certain asset classes prices may be negative values. For example, prices for options strategies can be negative under certain market conditions.",
+            "isUnsigned": true,
+            "isBitField": false
+        },
+        {
+            "name": "PriceOffset",
+            "baseType": "number",
+            "description": "float field representing a price offset, which can be mathematically added to a 'Price'. Note the number of decimal places may vary and some fields such as LastForwardPoints may be negative.",
+            "isBitField": false
+        },
+        {
+            "name": "Qty",
+            "baseType": "number",
+            "description": "float field capable of storing either a whole number (no decimal places) of 'shares' (securities denominated in whole units) or a decimal value containing decimal places for non-share quantity asset classes (securities denominated in fractional units).",
+            "isBitField": false
+        },
+        {
+            "name": "Reserved1000Plus",
+            "baseType": "string",
+            "description": "Values 1000 and above are reserved for bilaterally agreed upon user defined enumerations.",
+            "isBitField": false
+        },
+        {
+            "name": "Reserved100Plus",
+            "baseType": "string",
+            "description": "Values 100 and above are reserved for bilaterally agreed upon user defined enumerations.",
+            "isBitField": false
+        },
+        {
+            "name": "Reserved4000Plus",
+            "baseType": "string",
+            "description": "Values 4000 and above are reserved for bilaterally agreed upon user defined enumerations.",
+            "isBitField": false
+        },
+        {
+            "name": "SeqNum",
+            "baseType": "integer",
+            "description": "int field representing a message sequence number. Value must be positive.",
+            "isUnsigned": true,
+            "isBitField": false
+        },
+        {
+            "name": "String",
+            "baseType": "string",
+            "description": "Alpha-numeric free format strings, can include any character or punctuation except the delimiter. All String fields are case sensitive (i.e. morstatt != Morstatt).",
+            "isUnsigned": false,
+            "isBitField": false
+        },
+        {
+            "name": "TagNum",
+            "baseType": "integer",
+            "description": "int field representing a field's tag number when using FIX 'Tag = Value' syntax. Value must be positive and may not contain leading zeros.",
+            "isUnsigned": true,
+            "isBitField": false
+        },
+        {
+            "name": "Tenor",
+            "baseType": "string",
+            "description": "used to allow the expression of FX standard tenors in addition to the base valid enumerations defined for the field that uses this pattern data type. This pattern data type is defined as follows:<br>Dx = tenor expression for 'days', e.g. 'D5', where 'x' is any integer > 0<br>Mx = tenor expression for 'months', e.g. 'M3', where 'x' is any integer > 0<br>Wx = tenor expression for 'weeks', e.g. 'W13', where 'x' is any integer > 0<br>Yx = tenor expression for 'years', e.g. 'Y1', where 'x' is any integer > 0",
+            "isBitField": false
+        },
+        {
+            "name": "TZTimeOnly",
+            "baseType": "string",
+            "description": "String field representing the time represented based on ISO 8601. This is the time with a UTC offset to allow identification of local time and timezone of that time. Format is HH=>MM[=>SS][Z | [ + | - hh[=>mm]]] where HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes.",
+            "isBitField": false,
+            "examples": [
+                {
+                    "description": "<ul><li>02:39-05 = five hours behind UTC (Eastern Standard Time)</li><li>15:39+08 = eight hours ahead of UTC (Hong Kong/Singapore time)</li><li>13:09+05:30 = 5.5 hours ahead of UTC (India Standard time)</li></ul>"
+                }
+            ]
+        },
+        {
+            "name": "TZTimestamp",
+            "baseType": "string",
+            "description": "string field representing a time/date combination representing local time with an offset to UTC to allow identification of local time and timezone offset of that time. The representation is based on ISO 8601.<br>Format is YYYYMMDD-HH=>MM=>SS[Z | [ + | - hh[=>mm]]] where YYYY = 0000 to 9999, MM = 01-12, DD = 01-31 HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes<br>Examples:<br>20060901-07:39Z is 07:39 UTC on 1st of September 2006<br>20060901-02:39-05 is five hours behind UTC, thus Eastern Time on 1st of September 2006<br>20060901-15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time on 1st of September 2006<br>20060901-13:09+05:30 is 5.5 hours ahead of UTC, India time on 1st of September 2006",
+            "isBitField": false
+        },
+        {
+            "name": "UTCDateOnly",
+            "baseType": "string",
+            "description": "String field representing Date represented in UTC (Universal Time Coordinated, also known as 'GMT') in YYYYMMDD format. This special-purpose field is paired with UTCTimeOnly to form a proper UTCTimestamp for bandwidth-sensitive messages.",
+            "isBitField": false,
+            "examples": [
+                {
+                    "description": "Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li></ul>"
+                }
+            ]
+        },
+        {
+            "name": "UTCTimeOnly",
+            "baseType": "string",
+            "description": "String field representing Time-only represented in UTC (Universal Time Coordinated, also known as 'GMT') in either HH:MM:SS (whole seconds) or HH:MM:SS.sss (milliseconds). This special-purpose field is paired with UTCDateOnly to form a proper UTCTimestamp for bandwidth-sensitive messages.",
+            "isBitField": false,
+            "examples": [
+                {
+                    "description": "Valid values:<ul><li>HH = 00-23</li><li>MM = 00-59</li><li>SS = 00-60 (60 only if UTC leap second)</li><li>sss = 000-999</li></ul>"
+                }
+            ]
+        },
+        {
+            "name": "UTCTimestamp",
+            "baseType": "string",
+            "description": "String field representing Time/date combination represented in UTC (Universal Time Coordinated, also known as 'GMT') in either YYYYMMDD-HH:MM:SS (whole seconds) or YYYYMMDD-HH:MM:SS.sss (milliseconds). Note that UTC includes corrections for leap seconds as declared by the International Earth Rotation Service (IERS) and has, since 1972, only occurred on the night of Dec. 31 or Jun 30. The IERS considers March 31 and September 30 as secondary dates for leap second insertion, but has never utilized these dates. During a leap second insertion, a UTCTimestamp field may read '19981231-23:59:59', '19981231-23:59:60', '19990101-00:00:00'",
+            "isBitField": false,
+			"pattern": "20(1|2)[0-9](0[0-9]|1(1-2)-((0|1)[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9].[0-9]{3}",
+            "examples": [
+                {
+                    "description": "Valid values:<ul><li>YYYY = 0000-9999</li><li>MM = 01-12</li><li>DD = 01-31</li><li>HH = 00-23</li><li>MM = 00-59</li><li>SS = 00-60 (60 only if UTC leap second)</li><li>sss = 000-999</li></ul>"
+                }
+            ]
+        },
+        {
+            "name": "XMLData",
+            "baseType": "string",
+            "description": "Contains an XML document raw data with no format or content restrictions. XMLData fields are always immediately preceded by a length field. The length field should specify the number of bytes of the value of the data field (up to but not including the terminating SOH).",
+            "isBitField": false
+        }
+    ],
+    "changes": {
+        "summary": "No details provided",
+        "lastVersion": "7.0",
+        "lastVersionDate": "2020-02-08"
+    },
+    "nav": {
+        "technical": {
+            "Session": {
+                "items": [
+                    {
+                        "key": "OZWzk7p0",
+                        "name": "Heartbeat"
+                    },
+                    {
+                        "key": "tZ2JWE0c",
+                        "name": "TestRequest"
+                    },
+                    {
+                        "key": "tio0vjKC",
+                        "name": "ResendRequest"
+                    },
+                    {
+                        "key": "bDQIJPkq",
+                        "name": "Reject"
+                    },
+                    {
+                        "key": "UTnUGGU6",
+                        "name": "SequenceReset"
+                    },
+                    {
+                        "key": "2irN079n",
+                        "name": "Logout"
+                    },
+                    {
+                        "key": "PKne5tBh",
+                        "name": "Logon"
+                    }
+                ]
+            },
+            "Single Orders": {
+                "items": [
+                    {
+                        "key": "dp0TORLI",
+                        "name": "ExecutionReport"
+                    },
+                    {
+                        "key": "iYMFYSFV",
+                        "name": "New Order Single"
+                    }
+                ]
+            }
+        },
+        "block": {
+            "Core": {
+                "items": [
+                    {
+                        "key": "CSFKK2JK",
+                        "name": "StandardHeader"
+                    },
+                    {
+                        "key": "abU5YDSp",
+                        "name": "StandardTrailer"
+                    }
+                ]
+            }
+        }
+    },
+    "blocks": {
+        "CSFKK2JK": {
+            "name": "StandardHeader",
+            "direction": "both",
+            "description": "The standard FIX message header",
+            "fields": [
+                {
+                    "position": 0,
+                    "name": "OnBehalfOfSubID",
+                    "alwaysRequired": false,
+                    "datatype": "String",
+                    "description": "",
+                    "wireId": "116"
+                },
+                {
+                    "position": 1,
+                    "name": "TargetSubID",
+                    "alwaysRequired": false,
+                    "datatype": "String",
+                    "description": "",
+                    "wireId": "57"
+                },
+                {
+                    "position": 2,
+                    "name": "MsgType",
+                    "alwaysRequired": true,
+                    "datatype": "String",
+                    "description": "The message type code",
+                    "wireId": "35"
+                },
+                {
+                    "position": 3,
+                    "name": "SenderCompID",
+                    "alwaysRequired": true,
+                    "datatype": "String",
+                    "description": "Used to identify the message sender. Determined in agreement between client and FixSpec.",
+                    "wireId": "49"
+                },
+                {
+                    "position": 4,
+                    "name": "BodyLength",
+                    "alwaysRequired": true,
+                    "datatype": "Length",
+                    "description": "The message length in bytes",
+                    "wireId": "9"
+                },
+                {
+                    "position": 5,
+                    "name": "SenderSubID",
+                    "alwaysRequired": false,
+                    "datatype": "String",
+                    "description": "",
+                    "wireId": "50"
+                },
+                {
+                    "position": 6,
+                    "name": "OrigSendingTime",
+                    "alwaysRequired": false,
+                    "datatype": "UTCTimestamp",
+                    "description": "Original time of message transmission (always expressed in UTC (Universal Time Coordinated, also known as \"GMT\") when transmitting orders as the result of a resend request.",
+                    "wireId": "122"
+                },
+                {
+                    "position": 7,
+                    "name": "MsgSeqNum",
+                    "alwaysRequired": true,
+                    "datatype": "SeqNum",
+                    "description": "The message sequence number",
+                    "wireId": "34"
+                },
+                {
+                    "position": 8,
+                    "name": "TargetCompID",
+                    "alwaysRequired": true,
+                    "datatype": "String",
+                    "description": "Used to identify the message recipient. Determined in agreement between client and FixSpec.",
+                    "wireId": "56"
+                },
+                {
+                    "position": 9,
+                    "name": "PossResend",
+                    "alwaysRequired": false,
+                    "datatype": "Boolean",
+                    "description": "Populated when there is a chance that the message is a duplicate of a message sent under a different sequence number",
+                    "wireId": "97",
+                    "values": [
+                        {
+                            "wireValue": "N",
+                            "name": "Original transmission"
+                        },
+                        {
+                            "wireValue": "Y",
+                            "name": "Resent"
+                        }
+                    ]
+                },
+                {
+                    "position": 10,
+                    "name": "SendingTime",
+                    "alwaysRequired": true,
+                    "datatype": "UTCTimestamp",
+                    "description": "The time of message transmission, in UTC.",
+                    "wireId": "52"
+                },
+                {
+                    "position": 11,
+                    "name": "OnBehalfOfCompID",
+                    "alwaysRequired": false,
+                    "datatype": "String",
+                    "description": "",
+                    "wireId": "115"
+                },
+                {
+                    "position": 12,
+                    "name": "BeginString",
+                    "alwaysRequired": true,
+                    "datatype": "String",
+                    "description": "",
+                    "wireId": "8",
+                    "values": [
+                        {
+                            "wireValue": "FIX.4.3",
+                            "name": "FIX 4.3"
+                        },
+                        {
+                            "wireValue": "FIX.4.4",
+                            "name": "FIX 4.4 version"
+                        },
+                        {
+                            "wireValue": "FIXT.1.1",
+                            "name": "Â FIX 5.0 SP2"
+                        },
+                        {
+                            "wireValue": "8",
+                            "name": "FIX.4.4"
+                        }
+                    ]
+                },
+                {
+                    "position": 13,
+                    "name": "PossDupFlag",
+                    "alwaysRequired": false,
+                    "datatype": "Boolean",
+                    "description": "Populated for retransmitted messages",
+                    "wireId": "43",
+                    "values": [
+                        {
+                            "wireValue": "N",
+                            "name": "Original transmission"
+                        },
+                        {
+                            "wireValue": "Y",
+                            "name": "Possible duplicate"
+                        }
+                    ]
+                }
+            ],
+            "historyKey": "HO6Gb0Gx",
+            "isHeader": true
+        },
+        "abU5YDSp": {
+            "name": "StandardTrailer",
+            "direction": "both",
+            "description": "The standard FIX message trailer",
+            "fields": [
+                {
+                    "position": 0,
+                    "name": "CheckSum",
+                    "alwaysRequired": true,
+                    "datatype": "String",
+                    "description": "3 byte checksum calculated in accordance with the FIX specification.",
+                    "wireId": "10"
+                }
+            ],
+            "historyKey": "0d1tTlmC",
+            "isTrailer": true
+        }
+    },
+    "messages": {
+        "technical": {
+            "OZWzk7p0": {
+                "name": "Heartbeat",
+                "direction": "both",
+                "description": "Monitor connection status.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "Must be populated when the heartbeat is a response to a TestRequest message.",
+                        "wireId": "112"
+                    },
+                    {
+                        "position": 2,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "IhKBV9yv",
+                "isSession": true,
+                "wireId": "0"
+            },
+            "tZ2JWE0c": {
+                "name": "TestRequest",
+                "direction": "both",
+                "description": "Inquire connection status.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "TestReqID",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "Test request id. Any string can be used.",
+                        "wireId": "112"
+                    },
+                    {
+                        "position": 2,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "ZguKVcIN",
+                "isSession": true,
+                "wireId": "1"
+            },
+            "tio0vjKC": {
+                "name": "ResendRequest",
+                "direction": "both",
+                "description": "Fill in message gaps.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "BeginSeqNo",
+                        "alwaysRequired": true,
+                        "datatype": "SeqNum",
+                        "description": "Sequence number of the first message requested to be resent",
+                        "wireId": "7"
+                    },
+                    {
+                        "position": 2,
+                        "name": "EndSeqNo",
+                        "alwaysRequired": true,
+                        "datatype": "SeqNum",
+                        "description": "Sequence number of the last message requested to be resent, or zero if all messages subsequent to BeginSeqNo are to be resent.",
+                        "wireId": "16"
+                    },
+                    {
+                        "position": 3,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "oP5t7V3t",
+                "isSession": true,
+                "wireId": "2"
+            },
+            "bDQIJPkq": {
+                "name": "Reject",
+                "direction": "both",
+                "description": "Reject a single invalid message.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "RefSeqNum",
+                        "alwaysRequired": true,
+                        "datatype": "SeqNum",
+                        "description": "The sequence number of the rejected message",
+                        "wireId": "45"
+                    },
+                    {
+                        "position": 2,
+                        "name": "RefTagID",
+                        "alwaysRequired": false,
+                        "datatype": "int",
+                        "description": "The tag number of the FIX field being referenced",
+                        "wireId": "371"
+                    },
+                    {
+                        "position": 3,
+                        "name": "RefMsgType",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "The type code for the message being referenced",
+                        "wireId": "372"
+                    },
+                    {
+                        "position": 4,
+                        "name": "SessionRejectReason",
+                        "alwaysRequired": false,
+                        "datatype": "int",
+                        "description": "Code to identify the reason for a session level reject message, if appropriate",
+                        "wireId": "373",
+                        "values": [
+                            {
+                                "wireValue": 12,
+                                "name": "XML Validation error"
+                            },
+                            {
+                                "wireValue": 17,
+                                "name": "Non data value includes field delimiter (SOH character)"
+                            },
+                            {
+                                "wireValue": 16,
+                                "name": "Incorrect NumInGroup count for repeating group"
+                            },
+                            {
+                                "wireValue": 15,
+                                "name": "Repeating group fields out of order"
+                            },
+                            {
+                                "wireValue": 14,
+                                "name": "Tag specified out of required order"
+                            },
+                            {
+                                "wireValue": 11,
+                                "name": "Invalid MsgType"
+                            },
+                            {
+                                "wireValue": 0,
+                                "name": "Invalid tag number"
+                            },
+                            {
+                                "wireValue": 9,
+                                "name": "CompID problem"
+                            },
+                            {
+                                "wireValue": 8,
+                                "name": "Signature problem"
+                            },
+                            {
+                                "wireValue": 7,
+                                "name": "Decryption problem"
+                            },
+                            {
+                                "wireValue": 6,
+                                "name": "Incorrect data format for value"
+                            },
+                            {
+                                "wireValue": 5,
+                                "name": "Value is incorrect (out of range) for this tag"
+                            },
+                            {
+                                "wireValue": 4,
+                                "name": "Tag specified without a value"
+                            },
+                            {
+                                "wireValue": 3,
+                                "name": "Undefined Tag"
+                            },
+                            {
+                                "wireValue": 10,
+                                "name": "SendingTime accuracy problem"
+                            },
+                            {
+                                "wireValue": 13,
+                                "name": "Tag appears more than once"
+                            },
+                            {
+                                "wireValue": 2,
+                                "name": "Tag not defined for this message type"
+                            },
+                            {
+                                "wireValue": 1,
+                                "name": "Required tag missing"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 5,
+                        "name": "Text",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "Message to explain the reason for rejection, where possible",
+                        "wireId": "58"
+                    },
+                    {
+                        "position": 6,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "fUVdrFQ3",
+                "isSession": true,
+                "wireId": "3"
+            },
+            "UTnUGGU6": {
+                "name": "SequenceReset",
+                "direction": "both",
+                "description": "Resynchronize sequence numbers.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "GapFillFlag",
+                        "alwaysRequired": false,
+                        "datatype": "Boolean",
+                        "description": "Used to indicate that message is being used in gap-fill-mode",
+                        "wireId": "123",
+                        "values": [
+                            {
+                                "wireValue": "Y",
+                                "name": "Gap Fill message, MsgSeqNum field valid"
+                            },
+                            {
+                                "wireValue": "N",
+                                "name": "Sequence Reset, ignore MsgSeqNum"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 2,
+                        "name": "NewSeqNo",
+                        "alwaysRequired": true,
+                        "datatype": "SeqNum",
+                        "description": "The new next message sequence number to be used.",
+                        "wireId": "36"
+                    },
+                    {
+                        "position": 3,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "oRRMY8ta",
+                "isSession": true,
+                "wireId": "4"
+            },
+            "2irN079n": {
+                "name": "Logout",
+                "direction": "both",
+                "description": "Closing of a connection to the system is initiated by sending a Logout message to the other party. This should then be acknowledged by the other party by replying with a Logout message.Either the client or FixSpec may initiate disconnection.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "Text",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "Will be populated in the event of a FixSpec-initiated disconnection to provide a reason for the disconnection.",
+                        "wireId": "58"
+                    },
+                    {
+                        "position": 2,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "taLnwlCW",
+                "isSession": true,
+                "wireId": "5"
+            },
+            "PKne5tBh": {
+                "name": "Logon",
+                "direction": "both",
+                "description": "Establish connection, trigger message sequence number reset. Connection to the system is initiated by the client issuing a FIX Logon message.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "EncryptMethod",
+                        "alwaysRequired": true,
+                        "datatype": "int",
+                        "description": "",
+                        "wireId": "98",
+                        "values": [
+                            {
+                                "wireValue": 0,
+                                "name": "None"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 2,
+                        "name": "HeartBtInt",
+                        "alwaysRequired": true,
+                        "datatype": "int",
+                        "description": "The heartbeat interval. This will be set by agreement between the client and FixSpec.",
+                        "wireId": "108"
+                    },
+                    {
+                        "position": 3,
+                        "name": "ResetSeqNumFlag",
+                        "alwaysRequired": false,
+                        "datatype": "Boolean",
+                        "description": "Indicates both sides of the FIX session should reset sequence numbers. Should only be specified when this message is sent to instruct a sequence number reset.",
+                        "wireId": "141",
+                        "values": [
+                            {
+                                "wireValue": "Y",
+                                "name": "Yes, reset sequence numbers"
+                            },
+                            {
+                                "wireValue": "N",
+                                "name": "No"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 4,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "nFxmFZan",
+                "isSession": true,
+                "wireId": "A"
+            },
+            "ngPAlP8T": {
+                "name": "DontKnowTrade",
+                "direction": "both",
+                "description": "If, upon receipt of an Execution Report indicating a fill or partial fill, a serious problem with the trade is identified by the client, then a \"Don't Know Trade\" message may be sent to alert FixSpec to the problem.The Don’t Know Trade message must indicate the execution report to which it relates, and the nature of the problem.Note that that this doesn't cancel the trade, it simply alerts FixSpec support staff that there is a potential issue, and will trigger a manual investigation. Depending upon the nature of the issue, this may result in the price feed being temporarily suspended.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "OrderID",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "The OrderID corresponding to the problem execution.",
+                        "wireId": "37"
+                    },
+                    {
+                        "position": 2,
+                        "name": "ExecID",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "The Execution ID of the problem execution.",
+                        "wireId": "17"
+                    },
+                    {
+                        "position": 3,
+                        "name": "DKReason",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "The reason code corresponding to the problem. (If appropriate; use Z=other if not).",
+                        "wireId": "127",
+                        "values": [
+                            {
+                                "wireValue": "B",
+                                "name": "Wrong side"
+                            },
+                            {
+                                "wireValue": "C",
+                                "name": "Quantity exceeds order"
+                            },
+                            {
+                                "wireValue": "D",
+                                "name": "No matching order"
+                            },
+                            {
+                                "wireValue": "E",
+                                "name": "Price exceeds limit"
+                            },
+                            {
+                                "wireValue": "Z",
+                                "name": "Other"
+                            },
+                            {
+                                "wireValue": "A",
+                                "name": "Unknown symbol"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 4,
+                        "name": "Symbol",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "\"CCY1/CCY2\"This should correspond to the execution report.",
+                        "wireId": "55"
+                    },
+                    {
+                        "position": 5,
+                        "name": "Side",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "This should correspond to the execution report.",
+                        "wireId": "54",
+                        "values": [
+                            {
+                                "wireValue": "1",
+                                "name": "Buy"
+                            },
+                            {
+                                "wireValue": "2",
+                                "name": "Sell"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 6,
+                        "name": "OrderQty",
+                        "alwaysRequired": true,
+                        "datatype": "Qty",
+                        "description": "This should correspond to the execution report.",
+                        "wireId": "38"
+                    },
+                    {
+                        "position": 7,
+                        "name": "LastQty",
+                        "alwaysRequired": true,
+                        "datatype": "Qty",
+                        "description": "Required if specified on the execution report",
+                        "wireId": "32"
+                    },
+                    {
+                        "position": 8,
+                        "name": "LastPx",
+                        "alwaysRequired": true,
+                        "datatype": "Price",
+                        "description": "Required if specified on the execution report",
+                        "wireId": "31"
+                    },
+                    {
+                        "position": 9,
+                        "name": "Text",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "This should contain an error message indicating the nature of the problem.",
+                        "wireId": "58"
+                    },
+                    {
+                        "position": 10,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "xJ9X0LTO",
+                "wireId": "Q"
+            },
+            "dp0TORLI": {
+                "name": "ExecutionReport",
+                "direction": "out",
+                "description": "FixSpec will send a series of Execution Report messages to the client to provide notification regarding order execution.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "OrderID",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "Unique identifier of the order as assigned by FixSpec.",
+                        "wireId": "37",
+						"length": 13,
+						"pattern": "[A-Z]{13}"
+                    },
+                    {
+                        "position": 2,
+                        "name": "ClOrdID",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "The identifier of the order as assigned by the client in the New Order – Single message.",
+                        "wireId": "11"
+                    },
+                    {
+                        "position": 3,
+                        "name": "ExecID",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "Unique identifier of the execution report, as assigned by FixSpec.",
+                        "wireId": "17",
+						"length": 20,
+						"pattern": "[A-Z]{20}"
+                    },
+                    {
+                        "position": 4,
+                        "name": "ExecType",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "Describes the purpose of the execution report.",
+                        "wireId": "150",
+                        "values": [
+                            {
+                                "wireValue": "0",
+                                "name": "Open"
+                            },
+                            {
+                                "wireValue": "F",
+                                "name": "Trade (partially filled or filled)"
+                            },
+                            {
+                                "wireValue": "4",
+                                "name": "Cancelled"
+                            },
+                            {
+                                "wireValue": "8",
+                                "name": "Rejected"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 5,
+                        "name": "OrdStatus",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "Describes the current status of the order\nNote that for Partial Fills, the fill quantity could include a fractional amount.",
+                        "wireId": "39",
+                        "values": [
+                            {
+                                "wireValue": "0",
+                                "name": "Open"
+                            },
+                            {
+                                "wireValue": "1",
+                                "name": "Partially filled"
+                            },
+                            {
+                                "wireValue": "2",
+                                "name": "Filled"
+                            },
+                            {
+                                "wireValue": "4",
+                                "name": "Cancelled"
+                            },
+                            {
+                                "wireValue": "8",
+                                "name": "Rejected"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 6,
+                        "name": "OrdRejReason",
+                        "alwaysRequired": false,
+                        "datatype": "int",
+                        "description": "May be supplied when ExecType = 8 (Rejected), to indicate the reason for the rejection, if the reason corresponds to one of the standard codes for this field.",
+                        "wireId": "103",
+                        "values": [
+                            {
+                                "wireValue": 1,
+                                "name": "Unknown symbol"
+                            },
+                            {
+                                "wireValue": 4,
+                                "name": "Too late to enter"
+                            },
+                            {
+                                "wireValue": 5,
+                                "name": "Unknown Order"
+                            },
+                            {
+                                "wireValue": 7,
+                                "name": "Duplicate of a verbally communicated order"
+                            },
+                            {
+                                "wireValue": 9,
+                                "name": "Trade Along required"
+                            },
+                            {
+                                "wireValue": 10,
+                                "name": "Invalid Investor ID"
+                            },
+                            {
+                                "wireValue": 6,
+                                "name": "Duplicate OrderÂ "
+                            },
+                            {
+                                "wireValue": 11,
+                                "name": "Unsupported order characteristic"
+                            },
+                            {
+                                "wireValue": 12,
+                                "name": "Surveillence Option"
+                            },
+                            {
+                                "wireValue": 0,
+                                "name": "Broker / Exchange option"
+                            },
+                            {
+                                "wireValue": 8,
+                                "name": "Stale Order"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 7,
+                        "name": "FutSettDate",
+                        "alwaysRequired": false,
+                        "datatype": "LocalMktDate",
+                        "description": "Used to specify the value date in the format YYYYMMDD. \nPresent only for fills.",
+                        "wireId": "64",
+                        "length": 8
+                    },
+                    {
+                        "position": 8,
+                        "name": "FutSettDate2",
+                        "alwaysRequired": false,
+                        "datatype": "UTCDateOnly",
+                        "description": "Used to specify the value date of a swap far leg in the format YYYYMMDD.\nOnly present for swaps.",
+                        "wireId": "193",
+                        "length": 8
+                    },
+                    {
+                        "position": 9,
+                        "name": "Symbol",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "\"CCY1/CCY2\". This will match the symbol specified in the order request.",
+                        "wireId": "55"
+                    },
+                    {
+                        "position": 10,
+                        "name": "CFICode",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "",
+                        "wireId": "461",
+                        "values": [
+                            {
+                                "wireValue": "FFCPNO",
+                                "name": "Forward Outright (deliverable)"
+                            },
+                            {
+                                "wireValue": "FFCNNO",
+                                "name": "Non-deliverable forward (NDF)"
+                            },
+                            {
+                                "wireValue": "FFCPNW",
+                                "name": "Swap"
+                            },
+                            {
+                                "wireValue": "RCSXXX",
+                                "name": "Spot"
+                            },
+                            {
+                                "wireValue": "FFCNNW",
+                                "name": "Non-deliverable swap"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 11,
+                        "name": "SecurityID",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "Valor for Precious Metals",
+                        "wireId": "48"
+                    },
+                    {
+                        "position": 12,
+                        "name": "SecurityIDSource",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "",
+                        "wireId": "22",
+                        "values": [
+                            {
+                                "wireValue": "D",
+                                "name": "Valoren"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 13,
+                        "name": "BaseCcyDeliveryLocationType",
+                        "alwaysRequired": false,
+                        "datatype": "char",
+                        "description": "",
+                        "wireId": "9102",
+                        "values": [
+                            {
+                                "wireValue": "R",
+                                "name": "Default"
+                            },
+                            {
+                                "wireValue": "N",
+                                "name": "Onshore"
+                            },
+                            {
+                                "wireValue": "O",
+                                "name": "Offshore"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 14,
+                        "name": "CounterCcyDeliveryLocationType",
+                        "alwaysRequired": false,
+                        "datatype": "char",
+                        "description": "",
+                        "wireId": "9103",
+                        "values": [
+                            {
+                                "wireValue": "R",
+                                "name": "Default"
+                            },
+                            {
+                                "wireValue": "N",
+                                "name": "Onshore"
+                            },
+                            {
+                                "wireValue": "O",
+                                "name": "Offshore"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 15,
+                        "name": "MaturityDate",
+                        "alwaysRequired": false,
+                        "datatype": "UTCDateOnly",
+                        "description": "NDF Fixing Date or ND Swap near leg Fixing Date\nOnly sent for NDF messages (CFICode=FFCNNO) or ND Swap messages (CFICode= FFCNNW) when requested on a New Order Single Message with RequestFixingInfo=Y",
+                        "wireId": "541",
+						"length": 8
+                    },
+                    {
+                        "position": 16,
+                        "name": "MaturityDate2",
+                        "alwaysRequired": false,
+                        "datatype": "UTCDateOnly",
+                        "description": "ND Swap far leg Fixing Date.\nOnly sent for ND Swap messages (CFICode= FFCNNW) when requested on New Order Single Message with RequestFixingInfo=Y",
+                        "wireId": "7541",
+						"length": 8
+                    },
+                    {
+                        "position": 17,
+                        "name": "Side",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "Specifies the side of the order. This will match the side specified in the order request.",
+                        "wireId": "54",
+                        "values": [
+                            {
+                                "wireValue": "1",
+                                "name": "Buy"
+                            },
+                            {
+                                "wireValue": "2",
+                                "name": "Sell"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 18,
+                        "name": "OrderQty",
+                        "alwaysRequired": true,
+                        "datatype": "Qty",
+                        "description": "The quantity, as specified in the order request",
+                        "wireId": "38",
+						"minValue": 0
+                    },
+                    {
+                        "position": 19,
+                        "name": "OrderQty2",
+                        "alwaysRequired": false,
+                        "datatype": "Amt",
+                        "description": "The swap far leg amount.",
+                        "wireId": "192",
+						"minValue": 0
+                    },
+                    {
+                        "position": 20,
+                        "name": "OrdType",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "The order type, as specified in the order request",
+                        "wireId": "40",
+                        "values": [
+                            {
+                                "wireValue": "1",
+                                "name": "Market"
+                            },
+                            {
+                                "wireValue": "2",
+                                "name": "Limit"
+                            },
+                            {
+                                "wireValue": "D",
+                                "name": "Previously Quoted"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 21,
+                        "name": "Price",
+                        "alwaysRequired": false,
+                        "datatype": "Price",
+                        "description": "The price specified on the order request, if one was present",
+                        "wireId": "44",
+						"minValue": 0.001
+                    },
+                    {
+                        "position": 22,
+                        "name": "Price2",
+                        "alwaysRequired": false,
+                        "datatype": "Price",
+                        "description": "The all-in far leg swap rate specified on the order request, if one was present ",
+                        "wireId": "640",
+						"minValue": 0.001
+                    },
+                    {
+                        "position": 23,
+                        "name": "Currency",
+                        "alwaysRequired": false,
+                        "datatype": "Currency",
+                        "description": "The currency specified on the order request, if one was present",
+                        "wireId": "15",
+                        "length": 3
+                    },
+                    {
+                        "position": 24,
+                        "name": "TimeInForce",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "The time in force value as specified on the order request.",
+                        "wireId": "59",
+                        "values": [
+                            {
+                                "wireValue": "3",
+                                "name": "Immediate or Cancel"
+                            },
+                            {
+                                "wireValue": "4",
+                                "name": "Fill or Kill"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 25,
+                        "name": "LastQty",
+                        "alwaysRequired": true,
+                        "datatype": "Qty",
+                        "description": "If ExecType(150) = Trade(F), then this will contain the quantity of the order fill being reported. Otherwise this field will contain zero.",
+                        "wireId": "32",
+						"minValue": 0
+                    },
+                    {
+                        "position": 26,
+                        "name": "LastPx",
+                        "alwaysRequired": false,
+                        "datatype": "Price",
+                        "description": "If ExecType(150) = Trade(F), then this will contain the rate at which the fill being reported was executed. Otherwise this field will not be specified\nFor forwards, this will be the all-in rate. For swaps the near leg rate.",
+                        "wireId": "31",
+						"minValue": 0
+                    },
+                    {
+                        "position": 27,
+                        "name": "LastSpotRate",
+                        "alwaysRequired": false,
+                        "datatype": "Price",
+                        "description": "If ExecType(150) = Trade(F), then this will contain the spot rate used for the fill being reported. Otherwise this field will not be specified",
+                        "wireId": "194",
+						"minValue": 0.001
+                    },
+                    {
+                        "position": 28,
+                        "name": "LastForwardPoints",
+                        "alwaysRequired": false,
+                        "datatype": "PriceOffset",
+                        "description": "If ExecType(150) = Trade(F), and the product is a forward or swap, then this will contain the forward points used for the fill being reported (near leg). Otherwise this field will not be specified",
+                        "wireId": "195"
+                    },
+                    {
+                        "position": 29,
+                        "name": "LastForwardPoints2",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "If ExecType(150) = Trade(F), and the product is a swap, then this will contain the forward points used for the fill being reported (far leg). Otherwise this field will not be specified",
+                        "wireId": "641"
+                    },
+                    {
+                        "position": 30,
+                        "name": "LeavesQty",
+                        "alwaysRequired": false,
+                        "datatype": "Qty",
+                        "description": "The quantity open for further execution.\nIf OrdStatus(39) is Cancelled (4) or Rejected(8) then this will be zero.\nOtherwise it will take the value:OrderQty(38) – CumQty(14)",
+                        "wireId": "151",
+						"minValue": 0
+                    },
+                    {
+                        "position": 31,
+                        "name": "CumQty",
+                        "alwaysRequired": false,
+                        "datatype": "Qty",
+                        "description": "The cumulative, currently executed quantity for the order. Swaps are fully filled only and this value will contain the near leg amount.",
+                        "wireId": "14",
+						"minValue": 0
+                    },
+                    {
+                        "position": 32,
+                        "name": "AvgPx",
+                        "alwaysRequired": false,
+                        "datatype": "Price",
+                        "description": "The average price of all fills for this order. For swaps the near leg rate.If CumQty(14) is zero, i.e. no fills have occurred for the order, then this field will contain zero.",
+                        "wireId": "6",
+						"minValue": 0
+                    },
+                    {
+                        "position": 33,
+                        "name": "Text",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "May be used to return an error message if the ExecType = 8 (Rejected) or 4 (Cancelled).",
+                        "wireId": "58"
+                    },
+                    {
+                        "position": 34,
+                        "name": "NoExecs",
+                        "alwaysRequired": false,
+                        "datatype": "NumInGroup",
+                        "description": "The number of repeating groups to follow, one for each allocation leg.\n\nThe repeating groups should contain unique combinations of AllocAccount , ExecId , LastQty , and optional fields AllocId , USIssuerId  and USITradeId .",
+                        "wireId": "124",
+                        "fields": [
+                            {
+                                "position": 0,
+                                "name": "AllocAccount",
+                                "alwaysRequired": false,
+                                "datatype": "String",
+                                "description": "Account for this allocation leg.",
+                                "wireId": "79"
+                            },
+                            {
+                                "position": 1,
+                                "name": "ExecId",
+                                "alwaysRequired": false,
+                                "datatype": "String",
+                                "description": "Trade id for this allocation leg",
+                                "wireId": "17",
+								"length": 20,
+								"pattern": "[A-Z]{20}"
+                            },
+                            {
+                                "position": 2,
+                                "name": "LastQty",
+                                "alwaysRequired": false,
+                                "datatype": "Qty",
+                                "description": "Filled quantity for this allocation leg – positive amount implies same side as Side ; negative implies opposite side",
+                                "wireId": "32",
+								"minValue": 0
+                            },
+                            {
+                                "position": 3,
+                                "name": "AllocId",
+                                "alwaysRequired": false,
+                                "datatype": "String",
+                                "description": "Optional client id for this allocation leg",
+                                "wireId": "70"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 35,
+                        "name": "TransactTime",
+                        "alwaysRequired": false,
+                        "datatype": "UTCTimestamp",
+                        "description": "Will only be sent to clients configured to receive MiFID II fields\nFixSpec execution timestamp in UTC to millisecond precision",
+                        "wireId": "60"
+                    },
+                    {
+                        "position": 36,
+                        "name": "LastCapacity",
+                        "alwaysRequired": false,
+                        "datatype": "char",
+                        "description": "Will only be sent to clients configured to receive MiiFID II fields.\nFixSpec Trading Capacity\n ",
+                        "wireId": "29",
+                        "values": [
+                            {
+                                "wireValue": "4",
+                                "name": "Principal - DEAL"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 37,
+                        "name": "NoPartyIDs",
+                        "alwaysRequired": false,
+                        "datatype": "NumInGroup",
+                        "description": "This block will only be sent to clients configured to receive MiiFID II fields.\n\nThe number of repeating groups to follow.\nThe repeating groups should contain unique combinations of PartyID , PartyIDSource , and PartyRole .",
+                        "wireId": "453",
+                        "values": [
+                            {
+                                "wireValue": 1,
+                                "name": "One"
+                            },
+                            {
+                                "wireValue": 2,
+                                "name": "Two"
+                            },
+                            {
+                                "wireValue": 3,
+                                "name": "Three"
+                            },
+                            {
+                                "wireValue": 4,
+                                "name": "Four"
+                            }
+                        ],
+                        "fields": [
+                            {
+                                "position": 0,
+                                "name": "PartyRole",
+                                "alwaysRequired": true,
+                                "datatype": "int",
+                                "description": "The type of party:",
+                                "wireId": "452",
+                                "values": [
+                                    {
+                                        "wireValue": 3,
+                                        "name": "Customer Account name (FixSpec Account name)"
+                                    },
+                                    {
+                                        "wireValue": 12,
+                                        "name": "Executing Trader (Create/Cancel/Amend)"
+                                    },
+                                    {
+                                        "wireValue": 73,
+                                        "name": "Execution Venue"
+                                    },
+                                    {
+                                        "wireValue": 1,
+                                        "name": "Executing Firm (Legal Entity Identifier)"
+                                    },
+                                    {
+                                        "wireValue": 122,
+                                        "name": "Investment Decision Maker"
+                                    }
+                                ]
+                            },
+                            {
+                                "position": 1,
+                                "name": "PartyID",
+                                "alwaysRequired": false,
+                                "datatype": "String",
+                                "description": "The party id\n\nFor 452=12 or 452=122, this will either be the Algo ID if electronically priced or the trader short code if manually priced\nFor 452=3, this will be the FixSpec Legal Entity Identifier (LEI)\nFor 452=73, this will be the MIC Code (either as provided on the NewOrderSingle or the FixSpec MIC Code if relevant)",
+                                "wireId": "448"
+                            },
+                            {
+                                "position": 2,
+                                "name": "PartyIDSource",
+                                "alwaysRequired": false,
+                                "datatype": "char",
+                                "description": "The type of party id.",
+                                "wireId": "447",
+                                "values": [
+                                    {
+                                        "wireValue": "D",
+                                        "name": "Prop - Custome code"
+                                    },
+                                    {
+                                        "wireValue": "N",
+                                        "name": "Legal Entity Identifier"
+                                    },
+                                    {
+                                        "wireValue": "G",
+                                        "name": "MIC Code"
+                                    }
+                                ]
+                            },
+                            {
+                                "position": 3,
+                                "name": "PartyRoleQualifier",
+                                "alwaysRequired": false,
+                                "datatype": "int",
+                                "description": "Provides further qualification of PartyRole.",
+                                "wireId": "2376",
+                                "values": [
+                                    {
+                                        "wireValue": 22,
+                                        "name": "Algorithm"
+                                    },
+                                    {
+                                        "wireValue": 24,
+                                        "name": "Natural Person"
+                                    },
+                                    {
+                                        "wireValue": 23,
+                                        "name": "Firm or legal entity (LEI) (applicable for PartyRole values 3 or 73)"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "position": 38,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "OoCYZPhR",
+                "wireId": "8"
+            },
+            "iYMFYSFV": {
+                "name": "New Order Single",
+                "direction": "in",
+                "description": "A message to enter a new order.",
+                "fields": [
+                    {
+                        "position": 0,
+                        "name": "StandardHeader",
+                        "alwaysRequired": true,
+                        "blockKey": "CSFKK2JK"
+                    },
+                    {
+                        "position": 1,
+                        "name": "ClOrdID",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "Unique identifier of the order as assigned by the client",
+                        "wireId": "11"
+                    },
+                    {
+                        "position": 2,
+                        "name": "MDReqID",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "Required if multiple subscriptions are present for the same instrument.Will refer to the unique, client-provided, identifier supplied in the Market Data Request.",
+                        "wireId": "262"
+                    },
+                    {
+                        "position": 3,
+                        "name": "NoPartyIDs",
+                        "alwaysRequired": true,
+                        "datatype": "NumInGroup",
+                        "description": "The number of repeating groups to follow.\nAccepted values = 1, 2, or 3. (2 and 3 if optional trader id is specified or if Order coming from Venue)\nThe repeating groups should contain unique combinations of PartyID , PartyIDSource , and PartyRole .",
+                        "wireId": "453",
+                        "values": [
+                            {
+                                "wireValue": 1,
+                                "name": "One"
+                            },
+                            {
+                                "wireValue": 2,
+                                "name": "Two"
+                            },
+                            {
+                                "wireValue": 3,
+                                "name": "Three"
+                            }
+                        ],
+                        "fields": [
+                            {
+                                "position": 0,
+                                "name": "PartyID",
+                                "alwaysRequired": true,
+                                "datatype": "String",
+                                "description": "The party id (counterparty, trader etc.)\n*The MIC code of the venue should be provided here if 447=G",
+                                "wireId": "448"
+                            },
+                            {
+                                "position": 1,
+                                "name": "PartyIDSource",
+                                "alwaysRequired": true,
+                                "datatype": "char",
+                                "description": "The type of party id.",
+                                "wireId": "447",
+                                "values": [
+                                    {
+                                        "wireValue": "D",
+                                        "name": "Prop - Custome code"
+                                    },
+                                    {
+                                        "wireValue": "G",
+                                        "name": "MIC Code"
+                                    }
+                                ]
+                            },
+                            {
+                                "position": 2,
+                                "name": "PartyRole",
+                                "alwaysRequired": true,
+                                "datatype": "int",
+                                "description": "The type of party:",
+                                "wireId": "452",
+                                "values": [
+                                    {
+                                        "wireValue": 11,
+                                        "name": "Order Origination Trader (when trader id is given for field 448)"
+                                    },
+                                    {
+                                        "wireValue": 13,
+                                        "name": "Order Origination Firm (when counterparty id is given for field 448)"
+                                    },
+                                    {
+                                        "wireValue": 73,
+                                        "name": "Execution Venue"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "position": 4,
+                        "name": "FutSettDate",
+                        "alwaysRequired": false,
+                        "datatype": "UTCDateOnly",
+                        "description": "If the product is a forward or swap, must be specified to indicate the (near leg) settlement date in YYYYMMDD format.",
+                        "wireId": "64"
+                    },
+                    {
+                        "position": 5,
+                        "name": "FutSettDate2",
+                        "alwaysRequired": false,
+                        "datatype": "UTCDateOnly",
+                        "description": "Required for swaps. The far leg date.",
+                        "wireId": "193"
+                    },
+                    {
+                        "position": 6,
+                        "name": "HandlInst",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "Instructions for order handling",
+                        "wireId": "21",
+                        "values": [
+                            {
+                                "wireValue": "1",
+                                "name": "Automated execution order, private, no Broker intervention"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 7,
+                        "name": "Symbol",
+                        "alwaysRequired": true,
+                        "datatype": "String",
+                        "description": "\"CCY1/CCY2\"",
+                        "wireId": "55"
+                    },
+                    {
+                        "position": 8,
+                        "name": "CFICode",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "Must be provided if the product is a forward. Used to distinguish deliverable, versus non-deliverable forwards.",
+                        "wireId": "461",
+                        "values": [
+                            {
+                                "wireValue": "FFCPNO",
+                                "name": "Forward Outright (deliverable)"
+                            },
+                            {
+                                "wireValue": "FFCNNO",
+                                "name": "Non-deliverable forward (NDF)"
+                            },
+                            {
+                                "wireValue": "FFCPNW",
+                                "name": "Swap"
+                            },
+                            {
+                                "wireValue": "RCSXXX",
+                                "name": "Spot"
+                            },
+                            {
+                                "wireValue": "FFCNNW",
+                                "name": "Non-deliverable swap"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 9,
+                        "name": "SecurityID",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "Valor for Precious Metals\nRequires SecurityIDSource.\n\nNeeds to match the symbol specified in tag 55\nIf SecurityID not specified then PM will default to metal specified in 7.15\nSee 7.16 for list of valid SecurityID",
+                        "wireId": "48"
+                    },
+                    {
+                        "position": 10,
+                        "name": "SecurityIDSource",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "",
+                        "wireId": "22",
+                        "values": [
+                            {
+                                "wireValue": "D",
+                                "name": "Valoren"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 11,
+                        "name": "BaseCcyDeliveryLocationType",
+                        "alwaysRequired": false,
+                        "datatype": "char",
+                        "description": "",
+                        "wireId": "9102",
+                        "values": [
+                            {
+                                "wireValue": "R",
+                                "name": "Default"
+                            },
+                            {
+                                "wireValue": "N",
+                                "name": "Onshore"
+                            },
+                            {
+                                "wireValue": "O",
+                                "name": "Offshore"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 12,
+                        "name": "CounterCcyDeliveryLocationType",
+                        "alwaysRequired": false,
+                        "datatype": "char",
+                        "description": "",
+                        "wireId": "9103",
+                        "values": [
+                            {
+                                "wireValue": "R",
+                                "name": "Default"
+                            },
+                            {
+                                "wireValue": "N",
+                                "name": "Onshore"
+                            },
+                            {
+                                "wireValue": "O",
+                                "name": "Offshore"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 13,
+                        "name": "MaturityDate",
+                        "alwaysRequired": false,
+                        "datatype": "LocalMktDate",
+                        "description": "NDF Fixing Date required (option for ND crosses)\nOnly valid for NDF or ND Swap messages (CFICode=FFCNNO or FFCNNW)",
+                        "wireId": "541"
+                    },
+                    {
+                        "position": 14,
+                        "name": "MaturityDate2",
+                        "alwaysRequired": false,
+                        "datatype": "LocalMktDate",
+                        "description": "NDF Fixing Date (far leg) required (option for ND crosses)\nOnly valid for ND Swap messages (CFICode= FFCNNW)",
+                        "wireId": "7541"
+                    },
+                    {
+                        "position": 15,
+                        "name": "FixingReference",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "Used to specify the required fixing procedure of an NDF.\n\nSee Appendix 7.17 for valid values\n\nOnly valid for NDF messages (CFICode = FFCNNO) or ND Swap Messages (CFICode = FFCNNW)\n\nMandatory only for ND crosses",
+                        "wireId": "7075"
+                    },
+                    {
+                        "position": 16,
+                        "name": "RequestFixingInfo",
+                        "alwaysRequired": false,
+                        "datatype": "char",
+                        "description": "Request NDF fixing inforamtion (date and procedure) on response.\nOnly valid for CFICode-FFCNNO or CFICode=FFCNNW;ignored otherwise.",
+                        "wireId": "10006",
+                        "values": [
+                            {
+                                "wireValue": "Y",
+                                "name": "Yes"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 17,
+                        "name": "Side",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "Buy or sell side. This is relative to the currency set by field 15, or currency 1 if field 15 not specified.",
+                        "wireId": "54",
+                        "values": [
+                            {
+                                "wireValue": "1",
+                                "name": "Buy"
+                            },
+                            {
+                                "wireValue": "2",
+                                "name": "Sell"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 18,
+                        "name": "TransactTime",
+                        "alwaysRequired": true,
+                        "datatype": "UTCTimestamp",
+                        "description": "The time that this order request was initiated",
+                        "wireId": "60"
+                    },
+                    {
+                        "position": 19,
+                        "name": "OrderQty",
+                        "alwaysRequired": true,
+                        "datatype": "Amt",
+                        "description": "The quantity of the order, in units of the denomination currency as set by field 15 (Currency)",
+                        "wireId": "38"
+                    },
+                    {
+                        "position": 20,
+                        "name": "OrderQty2",
+                        "alwaysRequired": false,
+                        "datatype": "Amt",
+                        "description": "The swap far leg amount.",
+                        "wireId": "192"
+                    },
+                    {
+                        "position": 21,
+                        "name": "OrdType",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "Note that for Swaps, only Market and Previously Quoted orders are supported.",
+                        "wireId": "40",
+                        "values": [
+                            {
+                                "wireValue": "1",
+                                "name": "Market"
+                            },
+                            {
+                                "wireValue": "2",
+                                "name": "Limit"
+                            },
+                            {
+                                "wireValue": "D",
+                                "name": "Previously Quoted"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 22,
+                        "name": "Price",
+                        "alwaysRequired": false,
+                        "datatype": "Price",
+                        "description": "The rate, expressed as currency2 per currency1.This is required if OrdTyp  is 2 (Limit) or D (Previously Quoted).\nFor forwards this should be the all-in rate.",
+                        "wireId": "44"
+                    },
+                    {
+                        "position": 23,
+                        "name": "Price2",
+                        "alwaysRequired": false,
+                        "datatype": "Price",
+                        "description": "All-in far leg swap rate if OrdTyp  is D (Previously Quoted)",
+                        "wireId": "640"
+                    },
+                    {
+                        "position": 24,
+                        "name": "Currency",
+                        "alwaysRequired": false,
+                        "datatype": "Currency",
+                        "description": "The currency in which the OrderQty is specified. If not specified, then currency1 is assumed.",
+                        "wireId": "15",
+                        "length": 3
+                    },
+                    {
+                        "position": 25,
+                        "name": "QuoteID",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "Required if OrdType  is D (previously quoted.) Must contain the value of a QuoteEntryId (field 299) received on an MDEntry item within a MarketData message.",
+                        "wireId": "117"
+                    },
+                    {
+                        "position": 26,
+                        "name": "TimeInForce",
+                        "alwaysRequired": true,
+                        "datatype": "char",
+                        "description": "The execution strategy to be used. Swaps must have value 4.",
+                        "wireId": "59",
+                        "values": [
+                            {
+                                "wireValue": "3",
+                                "name": "Immediate or Cancel"
+                            },
+                            {
+                                "wireValue": "4",
+                                "name": "Fill or Kill"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 27,
+                        "name": "ExecInst",
+                        "alwaysRequired": false,
+                        "datatype": "MultipleStringValue",
+                        "description": "Instructions for order handling as per FIX 4.3. Additionally accepted values: b = Strict Limit",
+                        "wireId": "18",
+                        "values": [
+                            {
+                                "wireValue": "b",
+                                "name": "Strict Limit"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 28,
+                        "name": "LimitPxType",
+                        "alwaysRequired": false,
+                        "datatype": "int",
+                        "description": "Allows user to specify an average limit price.",
+                        "wireId": "9645",
+                        "values": [
+                            {
+                                "wireValue": 2,
+                                "name": "Average Limit Price"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 29,
+                        "name": "NoAllocs",
+                        "alwaysRequired": false,
+                        "datatype": "NumInGroup",
+                        "description": "The number of repeating groups to follow, one for each allocation leg\nThe repeating groups should contain unique combinations of AllocAccount , AllocShares  and optional fields AllocId , USIIssuerId  and USITradeId ",
+                        "wireId": "78",
+                        "fields": [
+                            {
+                                "position": 0,
+                                "name": "AllocAccount",
+                                "alwaysRequired": false,
+                                "datatype": "String",
+                                "description": "Account for this allocation leg – this should be the counterparty id as populated in Tag 448 when Tag 452=13",
+                                "wireId": "79"
+                            },
+                            {
+                                "position": 1,
+                                "name": "AllocQty",
+                                "alwaysRequired": false,
+                                "datatype": "Qty",
+                                "description": "Quantity for this allocation leg - positive amount implies same side as Side; negative implies opposite side",
+                                "wireId": "80"
+                            },
+                            {
+                                "position": 2,
+                                "name": "AllocId",
+                                "alwaysRequired": false,
+                                "datatype": "String",
+                                "description": "Optional client id for this allocation leg",
+                                "wireId": "70"
+                            },
+                            {
+                                "position": 3,
+                                "name": "AllocQty2",
+                                "alwaysRequired": false,
+                                "datatype": "Qty",
+                                "description": "Quantity for this swap allocation far leg - positive amount implies opposite of Side; negative implies the same side.",
+                                "wireId": "5966"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 30,
+                        "name": "LastCapacity",
+                        "alwaysRequired": false,
+                        "datatype": "char",
+                        "description": "Client Trading Capacity",
+                        "wireId": "29",
+                        "values": [
+                            {
+                                "wireValue": "1",
+                                "name": "Agent - AOTC"
+                            },
+                            {
+                                "wireValue": "3",
+                                "name": "Cross as principal - MTCH"
+                            },
+                            {
+                                "wireValue": "4",
+                                "name": "Principal - DEAL"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 31,
+                        "name": "MatchType",
+                        "alwaysRequired": false,
+                        "datatype": "char",
+                        "description": "Trading Venue to specify if they are acting as a Systematic Internaliser.",
+                        "wireId": "574",
+                        "values": [
+                            {
+                                "wireValue": "9",
+                                "name": "Trade Reporting (Systematic Internaliser)"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 32,
+                        "name": "RegulatoryTradeID",
+                        "alwaysRequired": false,
+                        "datatype": "String",
+                        "description": "Trading Venue to provide the Regulatory Trade ID (TVTIC)",
+                        "wireId": "1903"
+                    },
+                    {
+                        "position": 33,
+                        "name": "FarRegulatoryTradeID",
+                        "alwaysRequired": false,
+                        "datatype": "Amt",
+                        "description": "Trading Venue to provide the Regulatory Trade ID (TVTIC) for the far leg of a swap",
+                        "wireId": "20005"
+                    },
+                    {
+                        "position": 34,
+                        "name": "NoTrdRegPublication",
+                        "alwaysRequired": false,
+                        "datatype": "NumInGroup",
+                        "description": "",
+                        "wireId": "2668",
+                        "fields": [
+                            {
+                                "position": 0,
+                                "name": "TrdRegPublicationType",
+                                "alwaysRequired": false,
+                                "datatype": "Amt",
+                                "description": "",
+                                "wireId": "2669",
+                                "values": [
+                                    {
+                                        "wireValue": 2,
+                                        "name": "Exempted from publication"
+                                    },
+                                    {
+                                        "wireValue": 0,
+                                        "name": "Waiver Indicator - Pre-trade transparency waiver"
+                                    }
+                                ]
+                            },
+                            {
+                                "position": 1,
+                                "name": "TrdRegPublicationReason",
+                                "alwaysRequired": false,
+                                "datatype": "int",
+                                "description": "If 2669 = 0 then 2670 = 5 (SIZE) or 4 (ILQD)\nIf 2669 = 2 then 2670 = 11 (Exempted due to securities financing.",
+                                "wireId": "2670",
+                                "values": [
+                                    {
+                                        "wireValue": 4,
+                                        "name": "ILQD"
+                                    },
+                                    {
+                                        "wireValue": 5,
+                                        "name": "SIZE"
+                                    },
+                                    {
+                                        "wireValue": 11,
+                                        "name": "EXEMPT"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "position": 35,
+                        "name": "StandardTrailer",
+                        "alwaysRequired": true,
+                        "blockKey": "abU5YDSp"
+                    }
+                ],
+                "historyKey": "tXYwdR2E",
+                "wireId": "D"
+            }
+        }
+    }
+}
