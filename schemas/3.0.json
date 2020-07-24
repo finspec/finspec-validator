@@ -49,6 +49,9 @@
         "layout": {
             "$ref": "#/definitions/layout"
         },
+        "transforms": {
+            "$ref": "#/definitions/transformArray"
+        },
         "example": {
             "$ref": "#/definitions/examples"
         },        
@@ -819,10 +822,10 @@
                 "description"
             ],
             "properties" : {
-                "expressionType": {
+                "lang": {
                     "type": "string",
                     "description": "Type of grammar used in expression field. Default: groovy.",
-                    "enum": ["jsep", "javascript", "groovy"]
+                    "enum": ["javascript", "groovy"]
                 },
                 "expression": {
                     "type": "string",
@@ -934,10 +937,10 @@
                     "type": "string",
                     "description": "Decription of the condition rule."
                 },
-                "expressionType": {
+                "lang": {
                     "type": "string",
                     "description": "Type of grammar used in expression field.",
-                    "enum": [ "jsep", "javascript", "groovy"]
+                    "enum": ["javascript", "groovy"]
                 },
                 "expression": {
                     "type": "string",
@@ -1578,22 +1581,131 @@
             "items": [
                 {
                     "type" : "object",
-                    "required": [ "note", "created_by_text", "updated_at"],
+                    "required": [ "note", "createdByText", "updatedAt"],
                     "properties": {
                         "note" : {
                             "type" : "string",
                             "description": "A HTML or text note content."
                         },
-                        "created_by_text" : {
+                        "createdByText" : {
                             "type" : "string",
                             "description": "User who created the note"
                         },
-                        "updated_at" : {
+                        "updatedAt" : {
                             "type" : "string",
                             "description": "Time the note was last updated in YYYY-MM-DD HH:mm:SS format"
                         }
                     },
                     "additionalProperties": true
+                }
+            ]
+        },
+        "transformsArray": {
+            "description": "An array of transformations to be performed by the receiving application",
+            "additionalProperties": false,
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "required": [
+                        "actions"
+                    ],
+                    "properties": {
+                        "scope": {
+                            "$ref": "#/definitions/transformScope"
+                        },
+                        "actions": {
+                            "$ref": "#/definitions/transformActionArray"
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            ]
+        },
+        "transformScope": {
+            "description": "Used to filter the scope of the transform to messages which match the scope.",
+            "additionalProperties": true,
+            "type": "object",
+            "properties": {
+                "type": {
+                    "description": "Used to identify the type of messages on which to perform the action.",
+                    "type": "string",
+                    "enum": [
+                        "block",
+                        "technical",
+                        "functional"
+                    ]
+                },
+                "key": {
+                    "description": "The relevant unique key for the block / message targetted by this transformation.",
+                    "type": "string"
+                }, 
+                "direction": {
+                    "description": "The direction of the message.",
+                    "type": "string",
+                    "enum": [
+                        "in",
+                        "out",
+                        "both"
+                    ]                    
+                },
+                "lang": {
+                    "description": "Language used for the `condition` field. Default of `groovy`",
+                    "type": "string",
+                    "enum": [
+                        "groovy",
+                        "javascript"
+                    ]
+                },   
+                "condition": {
+                    "description": "An expression evaluating to a boolean, where tag numbers are prefixed with the '$' sign.",
+                    "type": "string"
+                } 
+            }
+        },
+        "transformActionArray": {
+            "description": "An array of transformation actions that should be performed (in the order of intended application) on scoped messages.",
+            "additionalProperties": false,
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "required": [
+                        "type"
+                    ],
+                    "properties": {
+                        "type": {
+                            "description": "Identifies the type of action to be performed.",
+                            "type": "string",
+                            "enum": [
+                                "drop",
+                                "store",
+                                "expression",
+                                "plugin"
+                            ]
+                        },
+                        "tag": {
+                            "description": "The tag to be dropped for `drop` types. Ignored for any other `type`.",
+                            "type": "string"
+                        },
+                        "uid": {
+                            "description": "An expression to generate a unique index for the sotrage of The tag to be dropped for `drop` types. Ignored for any other type.",
+                            "type": "string"
+                        },
+                        "lang": {
+                            "description": "Language used for the `expression` field. Default of `groovy`",
+                            "type": "string",
+                            "enum": [
+                                "groovy",
+                                "javascript"
+                            ]
+                        },
+                        "expression": {
+                            "description": "An expression to manipulate a field in a message, set or retrieve a $UID from storage, or to a call to an external plugin.",
+                            "type": "string"
+                        },
+                        "additionalProperties": true
+                    }
                 }
             ]
         }
